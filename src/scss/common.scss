@@ -3,6 +3,7 @@
 @use "global" as *;
 @use "others/destyle";
 @use "others/reset";
+@use "components/footer";
 
 // tailwindcssをユーティリティクラスのみ使います
 /* stylelint-disable-next-line scss/at-rule-no-unknown */

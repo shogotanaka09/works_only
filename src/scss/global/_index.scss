@@ -8,5 +8,15 @@
 @use "setting"as *;
 
 body {
-  font-family: map.get($fontfamily, base);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 130px;
+  font-family: map.get($fontfamily, "ja");
+  color: #000;
+  background: #fff;
+}
+
+main {
+  flex: 1;
 }

@@ -1,0 +1,26 @@
+@use "sass:math";
+@use "sass:map";
+@use "../global" as *;
+
+
+.c-footer {
+  margin-top: 130px;
+
+  &__inner {
+    max-width: 1480px;
+    padding: 0 20px;
+    margin: 0 auto;
+
+    .c-footer__text {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .c-footer__copy {
+      display: block;
+      margin: 24px 0 8px;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+}

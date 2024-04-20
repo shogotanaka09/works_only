@@ -1,1 +1,27 @@
 // mixin
+
+@use "setting" as *;
+
+@mixin for-device($size) {
+  @if $size == "pc" {
+    // 961px ~
+    @media screen and (min-width: $for-pc) {
+      @content;
+    }
+  } @else if $size == "tablet" {
+    // (768px) ~ 960px
+    @media screen and (max-width: $for-pc) {
+      @content;
+    }
+  } @else if $size == "phone" {
+    // ~ 767px
+    @media screen and (max-width: $for-phone) {
+      @content;
+    }
+  } @else if $size == "xs" {
+    // ~ 767px
+    @media screen and (max-width: $for-xs) {
+      @content;
+    }
+  }
+}

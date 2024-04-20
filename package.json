@@ -1,5 +1,5 @@
 {
-  "name": "sample-project",
+  "name": "works_only",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -7,7 +7,8 @@
   "author": "Zeroyon",
   "license": "UNLICENSED",
   "config": {
-    "themeName": "sample-project"
+    "themeName": "works_only",
+    "wpDir": ""
   },
   "volta": {
     "node": "16.17.0",
@@ -16,7 +17,6 @@
   "scripts": {
     "prepare": "husky install",
     "precommit": "lint-staged",
-    "setup": "node setup",
     "stylelint": "stylelint src/scss/**/*.scss --fix",
     "eslint": "eslint src/js/**/*.js --fix",
     "dev": "run-p dev:*",

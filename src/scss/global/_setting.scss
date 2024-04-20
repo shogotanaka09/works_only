@@ -14,4 +14,11 @@ $breakpoint: (
   "wide": 1440px,
 );
 $fontfamily: (
+  "ja": ("Noto Sans JP", sans-serif),
+  "en": ("quasimoda", sans-serif),
 );
+
+$for-pc: 1200px;
+$for-tablet: 835px;
+$for-phone: $for-tablet - 1px;
+$for-xs: 374px;

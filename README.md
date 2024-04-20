@@ -35,7 +35,7 @@
 
 ## 開発環境構築手順（リポジトリオーナー）
 1. `npm install`を実行する
-2. `npm run parepare`を実行する
+2. `npm run prepare`を実行する
 3. `npm run setup`を実行し、プロンプトの内容に従って必要な値を入力する
 4. `docker compose up -d`を実行する
 5. wordpressコンテナの起動が完了したことを確認する（`wp-config.php`が生成済みであれば基本的にはOK
