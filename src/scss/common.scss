@@ -1,0 +1,9 @@
+// 全ページ共通で読み込むCSSです。
+@use "sass:map";
+@use "global" as *;
+@use "others/destyle";
+@use "others/reset";
+
+// tailwindcssをユーティリティクラスのみ使います
+/* stylelint-disable-next-line scss/at-rule-no-unknown */
+@tailwind utilities;

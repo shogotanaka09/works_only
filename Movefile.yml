@@ -1,0 +1,129 @@
+global:
+  sql_adapter: default
+
+local:
+  vhost: "http://localhost:<%= ENV['LOCAL_SERVER_PORT'] %>"
+  wordpress_path: "/var/www/html"
+  database:
+    name: "wordpress"
+    user: "wordpress"
+    password: "wordpress"
+    host: "database"
+    mysqldump_options: "--default-character-set=utf8"
+
+##### staging #####
+staging:
+  vhost: "<%= ENV['STAGING_URL'] %>"
+  wordpress_path: "<%= ENV['STAGING_WP_DIR'] %>"
+
+  database:
+    name: "<%= ENV['STAGING_DB_NAME'] %>"
+    user: "<%= ENV['STAGING_DB_USER'] %>"
+    password: "<%= ENV['STAGING_DB_PASSWORD'] %>"
+    host: "<%= ENV['STAGING_DB_HOST'] %>"
+    port: <%= ENV['STAGING_DB_PORT'] %>
+    mysqldump_options: "--default-character-set=utf8"
+
+  exclude:
+    - '.git/'
+    - '.gitignore'
+    - '.gitmodules'
+    - '.env'
+    - 'node_modules/'
+    - 'bin/'
+    - 'tmp/*'
+    - 'Gemfile*'
+    - 'Movefile'
+    - 'movefile'
+    - 'movefile.yml'
+    - 'movefile.yaml'
+    - 'wp-config.php'
+    - 'wp-content/*.sql.gz'
+    - '*.orig'
+    - 'wp-content/uploads/backwpup*/*'
+    - '.htaccess'
+    - '.htpasswd'
+    - 'db-data/'
+
+  ssh:
+    host: "<%= ENV['STAGING_SSH_HOST'] %>"
+    port: <%= ENV['STAGING_SSH_PORT'] %>
+    user: "<%= ENV['STAGING_SSH_USER'] %>"
+    # password: "<%= ENV['STAGING_SSH_PASSWORD'] %>"
+    rsync_options: "--verbose"
+
+  hooks:
+    push:
+      before:
+        - command: "sudo chown <%= ENV['STAGING_SSH_USER'] %>: -R ."
+          where: remote
+      after:
+        - command: "sudo chown 33:tape -R ."
+          where: remote
+    pull:
+      before:
+        - command: "sudo chown <%= ENV['STAGING_SSH_USER'] %>: -R ."
+          where: remote
+      after:
+        - command: "sudo chown 33:tape -R ."
+          where: remote
+
+  forbid:
+    push:
+      db: false
+      plugins: false
+      themes: false
+      languages: false
+      uploads: false
+      mu-plugins: false
+
+##### production #####
+production:
+  vhost: "<%= ENV['PRODUCTION_URL'] %>"
+  wordpress_path: "<%= ENV['PRODUCTION_WP_DIR'] %>"
+
+  database:
+    name: "<%= ENV['PRODUCTION_DB_NAME'] %>"
+    user: "<%= ENV['PRODUCTION_DB_USER'] %>"
+    password: "<%= ENV['PRODUCTION_DB_PASSWORD'] %>"
+    host: "<%= ENV['PRODUCTION_DB_HOST'] %>"
+    port: <%= ENV['PRODUCTION_DB_PORT'] %>
+    # charset: "utf8"
+    # mysqldump_options: "--default-character-set=utf8"
+
+  exclude:
+    - '.git/'
+    - '.gitignore'
+    - '.gitmodules'
+    - '.env'
+    - 'node_modules/'
+    - 'bin/'
+    - 'tmp/*'
+    - 'Gemfile*'
+    - 'Movefile'
+    - 'movefile'
+    - 'movefile.yml'
+    - 'movefile.yaml'
+    - 'wp-config.php'
+    - 'wp-content/*.sql.gz'
+    - '*.orig'
+    - 'wp-content/uploads/backwpup*/*'
+    - '.htaccess'
+    - '.htpasswd'
+    - 'db-data/'
+
+  ssh:
+    host: "<%= ENV['PRODUCTION_SSH_HOST'] %>"
+    port: <%= ENV['PRODUCTION_SSH_PORT'] %>
+    user: "<%= ENV['PRODUCTION_SSH_USER'] %>"
+    # password: "<%= ENV['PRODUCTION_SSH_PASSWORD'] %>"
+    rsync_options: "--verbose"
+
+  forbid:
+    push:
+      db: true
+      plugins: true
+      themes: true
+      languages: true
+      uploads: true
+      mu-plugins: true

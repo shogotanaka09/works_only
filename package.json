@@ -1,0 +1,79 @@
+{
+  "name": "sample-project",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "author": "Zeroyon",
+  "license": "UNLICENSED",
+  "config": {
+    "themeName": "sample-project"
+  },
+  "volta": {
+    "node": "16.17.0",
+    "npm": "8.15.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "precommit": "lint-staged",
+    "setup": "node setup",
+    "stylelint": "stylelint src/scss/**/*.scss --fix",
+    "eslint": "eslint src/js/**/*.js --fix",
+    "dev": "run-p dev:*",
+    "dev:server": "browser-sync start -c bs-config.js",
+    "dev:sass": "sass src/scss:src/css --no-source-map -w",
+    "dev:postcss": "postcss src/css/**/*.css -d public/wp-content/themes/${npm_package_config_themeName}/assets/css --base src/css -w",
+    "dev:webpack": "webpack -c webpack.config.dev.js -w",
+    "imageclean": "rimraf public/wp-content/themes/${npm_package_config_themeName}/assets/img && mkdir -p public/wp-content/themes/${npm_package_config_themeName}/assets/img",
+    "imagemin": "node imagemin.mjs",
+    "dev:image": "npm run imageclean && npm run imagemin",
+    "dev:imagewatch": "onchange 'src/img' -e '**/*.DS_Store' -- npm run dev:image",
+    "prebuild": "rimraf public/wp-content/themes/${npm_package_config_themeName}/assets/{css,js} && rimraf src/css",
+    "build": "run-p build:*",
+    "build:css": "sass src/scss:src/css --no-source-map && postcss src/css -d public/wp-content/themes/${npm_package_config_themeName}/assets/css --base src/css",
+    "build:webpack": "webpack -c webpack.config.prod.js"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{css,scss}": "stylelint --fix"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "browser-sync": "^2.27.10",
+    "cross-var": "^1.1.0",
+    "css-loader": "^6.7.1",
+    "cssnano": "^5.0.15",
+    "dotenv": "^16.0.0",
+    "eslint": "^8.6.0",
+    "husky": "^7.0.4",
+    "imagemin": "^8.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-keep-folder": "^5.3.2",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-svgo": "^10.0.1",
+    "imagemin-webp": "^8.0.0",
+    "lint-staged": "^12.1.7",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "postcss": "^8.4.5",
+    "postcss-cli": "^9.1.0",
+    "prettier": "^2.5.1",
+    "prompts": "^2.4.2",
+    "rimraf": "^3.0.2",
+    "sass": "^1.47.0",
+    "style-loader": "^3.3.1",
+    "stylelint": "^14.2.0",
+    "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.1.3"
+  }
+}
