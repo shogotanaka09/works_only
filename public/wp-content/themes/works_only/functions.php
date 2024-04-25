@@ -48,11 +48,12 @@ add_theme_support('post-thumbnails');
 remove_filter('the_excerpt', 'wpautop');
 
 
-// エラーページをトップページにリダイレクト
-function is404_redirect()
+// エラーページをトップにリダイレクト
+add_action('template_redirect', 'is404_redirect_home');
+function is404_redirect_home()
 {
 	if (is_404()) {
-		wp_safe_redirect(home_url('/'), 301);
+		wp_safe_redirect(home_url('/'));
 		exit();
 	}
 }

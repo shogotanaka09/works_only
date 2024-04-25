@@ -1,7 +1,8 @@
 <?php
+
 /**
 Template Name: top
-***/
+ ***/
 ?>
 
 <!DOCTYPE html>
@@ -15,12 +16,8 @@ Template Name: top
                   <div class="section__inner">
                         <div class="section__head">
                               <div class="section__textarea">
-                                    <p class="section__text">ご覧いただきありがとうございます。</p>
-                                    <h1 class="section__heading">田中しょうごの実績を掲載しているサイトです。</h1>
                                     <p class="section__text">
-                                          ポートフォリオサイトリニューアル中のため実績のみを掲載しております<br>
-                                          また、実案件はNDA契約を結んでいるため掲載しておりません。<br>
-                                          恐れ入りますがご承知おきください。
+                                          <?php echo CFS()->get('text'); ?>
                                     </p>
                               </div>
                               <div class="section__about">
@@ -67,25 +64,31 @@ Template Name: top
                                     $news_query = new WP_Query($args);
                                     ?>
                                     <?php if ($news_query->have_posts()) : ?>
-                                          <?php while ($news_query->have_posts()) : $news_query->the_post();  ?>
+                                          <?php while ($news_query->have_posts()) : $news_query->the_post(); ?>
                                                 <li>
-                                                      <a href="<?php echo CFS()->get('url'); ?>" target="_blank">
-                                                            <div class="section__thumbnail">
-                                                                  <?php if (has_post_thumbnail()) : ?>
-                                                                        <?php the_post_thumbnail(); ?>
-                                                                  <?php else : ?>
-                                                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/common/sample.webp" alt="サムネイル画像">
+                                                      <?php $url = CFS()->get('url'); ?>
+                                                      <?php if (!empty($url)) : ?>
+                                                            <a href="<?php echo $url; ?>" target="_blank">
+                                                            <?php else : ?>
+                                                                  <a>
                                                                   <?php endif; ?>
-                                                            </div>
-                                                            <div class="section__desc">
-                                                                  <h2 class="section__title"><?php the_title(); ?></h2>
-                                                                  <p class="section__excerpt"><?php the_excerpt(); ?></p>
-                                                            </div>
-                                                      </a>
+                                                                  <div class="section__thumbnail">
+                                                                        <?php if (has_post_thumbnail()) : ?>
+                                                                              <?php the_post_thumbnail(); ?>
+                                                                        <?php else : ?>
+                                                                              <img src="<?php echo get_template_directory_uri(); ?>/assets/img/sample.webp" alt="サムネイル画像">
+                                                                        <?php endif; ?>
+                                                                  </div>
+                                                                  <div class="section__desc">
+                                                                        <h2 class="section__title"><?php the_title(); ?></h2>
+                                                                        <p class="section__excerpt"><?php the_excerpt(); ?></p>
+                                                                  </div>
+                                                            </a>
                                                 </li>
                                           <?php endwhile; ?>
                                     <?php endif; ?>
                                     <?php wp_reset_postdata(); ?>
+
                               </ul>
                         </div>
                   </div>
